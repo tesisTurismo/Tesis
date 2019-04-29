@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tesis.Dominio
+namespace Tesis.Dominio.Modelo
 {
-    public class Class1
+    class DataContext
     {
     }
 }
