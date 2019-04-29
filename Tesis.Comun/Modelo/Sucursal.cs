@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,10 @@ namespace Tesis.Comun.Modelo
 {
     public class Sucursal
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idSucursal { get; set; }
+        public string foto { get; set; }
         public string calle { get; set; }
         public int numero { get; set; }
         public string calleIntersección { get; set; }
