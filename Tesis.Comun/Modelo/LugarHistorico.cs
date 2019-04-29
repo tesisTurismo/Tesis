@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Tesis.Comun.Modelo
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     public class LugarHistorico
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idLugarHistorico { get; set; }
         public string foto { get; set; }
         public string nombreLugarH { get; set; }
