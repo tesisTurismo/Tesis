@@ -1,0 +1,58 @@
+﻿@model Tesis.Comun.Modelo.Local
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Local</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.categoriafk.foto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoriafk.foto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.foto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.foto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreLocal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreLocal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pagWeb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pagWeb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idLocal }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

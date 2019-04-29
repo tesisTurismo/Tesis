@@ -10,6 +10,8 @@ namespace Tesis.Web.Models
     using Tesis.Dominio.Modelo;
     public class LocalDataContext:DataContext
     {
+        public System.Data.Entity.DbSet<Tesis.Comun.Modelo.Local> Locals { get; set; }
 
+        public System.Data.Entity.DbSet<Tesis.Comun.Modelo.Categoria> Categorias { get; set; }
     }
 }
