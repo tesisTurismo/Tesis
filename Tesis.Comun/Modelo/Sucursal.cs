@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Tesis.Comun.Modelo
+{
+    public class Sucursal
+    {
+        public int idSucursal { get; set; }
+        public string calle { get; set; }
+        public int numero { get; set; }
+        public string calleIntersección { get; set; }
+        public string telefono { get; set; }
+        public float latitud { get; set; }
+        public float longitud { get; set; }
+        public int idLocal { get; set; }
+        public virtual Local localfk { get; set; }
+    }
+}
