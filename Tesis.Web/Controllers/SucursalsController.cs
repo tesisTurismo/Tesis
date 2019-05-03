@@ -12,112 +12,112 @@ using Tesis.Web.Models;
 
 namespace Tesis.Web.Controllers
 {
-    public class LocalsController : Controller
+    public class SucursalsController : Controller
     {
         private LocalDataContext db = new LocalDataContext();
 
-        // GET: Locals
+        // GET: Sucursals
         public async Task<ActionResult> Index()
         {
-            var locals = db.Locals.Include(l => l.categoriafk);
-            return View(await locals.ToListAsync());
+            var sucursals = db.Sucursals.Include(s => s.localfk);
+            return View(await sucursals.ToListAsync());
         }
 
-        // GET: Locals/Details/5
+        // GET: Sucursals/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            Sucursal sucursal = await db.Sucursals.FindAsync(id);
+            if (sucursal == null)
             {
                 return HttpNotFound();
             }
-            return View(local);
+            return View(sucursal);
         }
 
-        // GET: Locals/Create
+        // GET: Sucursals/Create
         public ActionResult Create()
         {
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat");
+            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "foto");
             return View();
         }
 
-        // POST: Locals/Create
+        // POST: Sucursals/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idLocal,foto,nombreLocal,pagWeb,descripcion,idCategoria")] Local local)
+        public async Task<ActionResult> Create([Bind(Include = "idSucursal,foto,calle,numero,calleIntersección,telefono,latitud,longitud,idLocal")] Sucursal sucursal)
         {
             if (ModelState.IsValid)
             {
-                db.Locals.Add(local);
+                db.Sucursals.Add(sucursal);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "foto", sucursal.idLocal);
+            return View(sucursal);
         }
 
-        // GET: Locals/Edit/5
+        // GET: Sucursals/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            Sucursal sucursal = await db.Sucursals.FindAsync(id);
+            if (sucursal == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "foto", sucursal.idLocal);
+            return View(sucursal);
         }
 
-        // POST: Locals/Edit/5
+        // POST: Sucursals/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idLocal,foto,nombreLocal,pagWeb,descripcion,idCategoria")] Local local)
+        public async Task<ActionResult> Edit([Bind(Include = "idSucursal,foto,calle,numero,calleIntersección,telefono,latitud,longitud,idLocal")] Sucursal sucursal)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(local).State = EntityState.Modified;
+                db.Entry(sucursal).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "foto", sucursal.idLocal);
+            return View(sucursal);
         }
 
-        // GET: Locals/Delete/5
+        // GET: Sucursals/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            Sucursal sucursal = await db.Sucursals.FindAsync(id);
+            if (sucursal == null)
             {
                 return HttpNotFound();
             }
-            return View(local);
+            return View(sucursal);
         }
 
-        // POST: Locals/Delete/5
+        // POST: Sucursals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Local local = await db.Locals.FindAsync(id);
-            db.Locals.Remove(local);
+            Sucursal sucursal = await db.Sucursals.FindAsync(id);
+            db.Sucursals.Remove(sucursal);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

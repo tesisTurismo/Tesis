@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Tesis.Comun.Modelo.Sucursal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.localfk.foto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.foto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.calle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.calleIntersección)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.latitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longitud)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.localfk.foto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.foto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.calle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.calleIntersección)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.latitud)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.longitud)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idSucursal }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idSucursal }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idSucursal })
+        </td>
+    </tr>
+}
+
+</table>

@@ -15,7 +15,7 @@ namespace Tesis.Comun.Modelo
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idCategoria { get; set; }
-        public string foto { get; set; }
+ 
         public string nombreCat { get; set; }
         public virtual ICollection<Local> locales { get; set; }
         public virtual ICollection<LugarHistorico> LugarHistoricos  { get; set; }

@@ -1,0 +1,90 @@
+﻿@model Tesis.Comun.Modelo.LugarHistorico
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LugarHistorico</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.categoriafk.nombreCat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoriafk.nombreCat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.foto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.foto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreLugarH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreLugarH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcionLugarH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcionLugarH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.calle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.calle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefonoLugarH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefonoLugarH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.latitudLugarH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.latitudLugarH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.longitudLugarH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.longitudLugarH)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idLugarHistorico }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

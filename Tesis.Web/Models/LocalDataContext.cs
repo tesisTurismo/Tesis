@@ -11,7 +11,10 @@ namespace Tesis.Web.Models
     public class LocalDataContext:DataContext
     {
         public System.Data.Entity.DbSet<Tesis.Comun.Modelo.Local> Locals { get; set; }
-
         public System.Data.Entity.DbSet<Tesis.Comun.Modelo.Categoria> Categorias { get; set; }
+        public System.Data.Entity.DbSet<Tesis.Comun.Modelo.LugarHistorico> LugarHistoricoes { get; set; }
+        public System.Data.Entity.DbSet<Tesis.Comun.Modelo.Sucursal> Sucursals { get; set; }
+
+       
     }
 }

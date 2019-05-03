@@ -12,112 +12,107 @@ using Tesis.Web.Models;
 
 namespace Tesis.Web.Controllers
 {
-    public class LocalsController : Controller
+    public class CategoriasController : Controller
     {
         private LocalDataContext db = new LocalDataContext();
 
-        // GET: Locals
+        // GET: Categorias
         public async Task<ActionResult> Index()
         {
-            var locals = db.Locals.Include(l => l.categoriafk);
-            return View(await locals.ToListAsync());
+            return View(await db.Categorias.ToListAsync());
         }
 
-        // GET: Locals/Details/5
+        // GET: Categorias/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            Categoria categoria = await db.Categorias.FindAsync(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(local);
+            return View(categoria);
         }
 
-        // GET: Locals/Create
+        // GET: Categorias/Create
         public ActionResult Create()
         {
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat");
             return View();
         }
 
-        // POST: Locals/Create
+        // POST: Categorias/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idLocal,foto,nombreLocal,pagWeb,descripcion,idCategoria")] Local local)
+        public async Task<ActionResult> Create([Bind(Include = "idCategoria,nombreCat")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                db.Locals.Add(local);
+                db.Categorias.Add(categoria);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            return View(categoria);
         }
 
-        // GET: Locals/Edit/5
+        // GET: Categorias/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            Categoria categoria = await db.Categorias.FindAsync(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            return View(categoria);
         }
 
-        // POST: Locals/Edit/5
+        // POST: Categorias/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idLocal,foto,nombreLocal,pagWeb,descripcion,idCategoria")] Local local)
+        public async Task<ActionResult> Edit([Bind(Include = "idCategoria,nombreCat")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(local).State = EntityState.Modified;
+                db.Entry(categoria).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            return View(categoria);
         }
 
-        // GET: Locals/Delete/5
+        // GET: Categorias/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            Categoria categoria = await db.Categorias.FindAsync(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(local);
+            return View(categoria);
         }
 
-        // POST: Locals/Delete/5
+        // POST: Categorias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Local local = await db.Locals.FindAsync(id);
-            db.Locals.Remove(local);
+            Categoria categoria = await db.Categorias.FindAsync(id);
+            db.Categorias.Remove(categoria);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

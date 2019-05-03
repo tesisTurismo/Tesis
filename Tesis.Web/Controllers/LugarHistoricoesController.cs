@@ -12,112 +12,112 @@ using Tesis.Web.Models;
 
 namespace Tesis.Web.Controllers
 {
-    public class LocalsController : Controller
+    public class LugarHistoricoesController : Controller
     {
         private LocalDataContext db = new LocalDataContext();
 
-        // GET: Locals
+        // GET: LugarHistoricoes
         public async Task<ActionResult> Index()
         {
-            var locals = db.Locals.Include(l => l.categoriafk);
-            return View(await locals.ToListAsync());
+            var lugarHistoricoes = db.LugarHistoricoes.Include(l => l.categoriafk);
+            return View(await lugarHistoricoes.ToListAsync());
         }
 
-        // GET: Locals/Details/5
+        // GET: LugarHistoricoes/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            LugarHistorico lugarHistorico = await db.LugarHistoricoes.FindAsync(id);
+            if (lugarHistorico == null)
             {
                 return HttpNotFound();
             }
-            return View(local);
+            return View(lugarHistorico);
         }
 
-        // GET: Locals/Create
+        // GET: LugarHistoricoes/Create
         public ActionResult Create()
         {
             ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat");
             return View();
         }
 
-        // POST: Locals/Create
+        // POST: LugarHistoricoes/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idLocal,foto,nombreLocal,pagWeb,descripcion,idCategoria")] Local local)
+        public async Task<ActionResult> Create([Bind(Include = "idLugarHistorico,foto,nombreLugarH,descripcionLugarH,calle,numero,telefonoLugarH,latitudLugarH,longitudLugarH,idCategoria")] LugarHistorico lugarHistorico)
         {
             if (ModelState.IsValid)
             {
-                db.Locals.Add(local);
+                db.LugarHistoricoes.Add(lugarHistorico);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", lugarHistorico.idCategoria);
+            return View(lugarHistorico);
         }
 
-        // GET: Locals/Edit/5
+        // GET: LugarHistoricoes/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            LugarHistorico lugarHistorico = await db.LugarHistoricoes.FindAsync(id);
+            if (lugarHistorico == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", lugarHistorico.idCategoria);
+            return View(lugarHistorico);
         }
 
-        // POST: Locals/Edit/5
+        // POST: LugarHistoricoes/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idLocal,foto,nombreLocal,pagWeb,descripcion,idCategoria")] Local local)
+        public async Task<ActionResult> Edit([Bind(Include = "idLugarHistorico,foto,nombreLugarH,descripcionLugarH,calle,numero,telefonoLugarH,latitudLugarH,longitudLugarH,idCategoria")] LugarHistorico lugarHistorico)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(local).State = EntityState.Modified;
+                db.Entry(lugarHistorico).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", lugarHistorico.idCategoria);
+            return View(lugarHistorico);
         }
 
-        // GET: Locals/Delete/5
+        // GET: LugarHistoricoes/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
+            LugarHistorico lugarHistorico = await db.LugarHistoricoes.FindAsync(id);
+            if (lugarHistorico == null)
             {
                 return HttpNotFound();
             }
-            return View(local);
+            return View(lugarHistorico);
         }
 
-        // POST: Locals/Delete/5
+        // POST: LugarHistoricoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Local local = await db.Locals.FindAsync(id);
-            db.Locals.Remove(local);
+            LugarHistorico lugarHistorico = await db.LugarHistoricoes.FindAsync(id);
+            db.LugarHistoricoes.Remove(lugarHistorico);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
