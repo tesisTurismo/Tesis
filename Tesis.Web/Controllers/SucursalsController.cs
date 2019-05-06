@@ -41,7 +41,7 @@ namespace Tesis.Web.Controllers
         // GET: Sucursals/Create
         public ActionResult Create()
         {
-            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "foto");
+            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "nombreLocal");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace Tesis.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "foto", sucursal.idLocal);
+            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "nombreLocal", sucursal.idLocal);
             return View(sucursal);
         }
 
@@ -75,7 +75,7 @@ namespace Tesis.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "foto", sucursal.idLocal);
+            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "nombreLocal", sucursal.idLocal);
             return View(sucursal);
         }
 
@@ -92,7 +92,7 @@ namespace Tesis.Web.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "foto", sucursal.idLocal);
+            ViewBag.idLocal = new SelectList(db.Locals, "idLocal", "nombreLocal", sucursal.idLocal);
             return View(sucursal);
         }
 
