@@ -1,0 +1,66 @@
+﻿@model Tesis.Comun.Modelo.Usuario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apellidoU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apellidoU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaisOrigen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaisOrigen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CiudadOrigen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CiudadOrigen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nacionalidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nacionalidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idUsuario }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

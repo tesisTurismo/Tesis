@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Tesis.Comun.Modelo
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     public class Usuario
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idUsuario { get; set; }
         
         public string nombreU { get; set; }
