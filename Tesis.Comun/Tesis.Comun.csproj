@@ -48,6 +48,7 @@
     <Compile Include="Modelo\Categoria.cs" />
     <Compile Include="Modelo\Local.cs" />
     <Compile Include="Modelo\LugarHistorico.cs" />
+    <Compile Include="Modelo\Respuesta.cs" />
     <Compile Include="Modelo\Sucursal.cs" />
     <Compile Include="Modelo\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
