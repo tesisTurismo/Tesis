@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tesis.Comun.Modelo
 {
+    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -17,7 +18,9 @@ namespace Tesis.Comun.Modelo
         public int idCategoria { get; set; }
  
         public string nombreCat { get; set; }
-        public virtual ICollection<Local> locales { get; set; }
+        [JsonIgnore]
+       public virtual ICollection<Local> locales { get; set; }
+        [JsonIgnore]
         public virtual ICollection<LugarHistorico> LugarHistoricos  { get; set; }
 
     }

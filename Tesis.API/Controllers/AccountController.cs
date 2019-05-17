@@ -13,11 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using Tesis.ServiciosAPI.Models;
-using Tesis.ServiciosAPI.Providers;
-using Tesis.ServiciosAPI.Results;
+using Tesis.API.Models;
+using Tesis.API.Providers;
+using Tesis.API.Results;
 
-namespace Tesis.ServiciosAPI.Controllers
+namespace Tesis.API.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

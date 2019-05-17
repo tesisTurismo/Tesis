@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tesis.Comun.Modelo
 {
+    using Newtonsoft.Json;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     public class Sucursal
@@ -22,6 +23,7 @@ namespace Tesis.Comun.Modelo
         public float latitud { get; set; }
         public float longitud { get; set; }
         public int idLocal { get; set; }
+        [JsonIgnore]
         public virtual Local localfk { get; set; }
     }
 }

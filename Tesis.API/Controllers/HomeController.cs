@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Tesis.ServiciosAPI.Controllers
+namespace Tesis.API.Controllers
 {
     public class HomeController : Controller
     {

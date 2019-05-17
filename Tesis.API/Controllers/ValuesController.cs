@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Tesis.ServiciosAPI.Controllers
+namespace Tesis.API.Controllers
 {
     [Authorize]
     public class ValuesController : ApiController

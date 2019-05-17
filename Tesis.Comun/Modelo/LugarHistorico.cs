@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tesis.Comun.Modelo
 {
+    using Newtonsoft.Json;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     public class LugarHistorico
@@ -23,6 +24,7 @@ namespace Tesis.Comun.Modelo
         public float latitudLugarH { get; set; }
         public float longitudLugarH { get; set; }
         public int idCategoria { get; set; }
+        [JsonIgnore]
         public virtual Categoria categoriafk { get; set; }
     }
 
