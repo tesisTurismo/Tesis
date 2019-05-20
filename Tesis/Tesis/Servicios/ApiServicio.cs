@@ -8,10 +8,38 @@ using System.Threading.Tasks;
 namespace Tesis.Servicios
 {
     using Comun.Modelo;
-    //using Plugin.Connectivity;
+    using Plugin.Connectivity;
     using System.Net.Http;
     public class ApiServicio
     {
+
+        public async Task<Respuesta> ValidacionInternet()
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return new Respuesta
+                {
+                    respExitosa = false,
+                    mensaje = "Por favor conectarse a internet.",
+                };
+            }
+
+            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("www.google.com");
+            if (!isReachable)
+            {
+                return new Respuesta
+                {
+                    respExitosa = false,
+                    mensaje = "No hay conexión a internet.",
+                };
+            }
+
+            return new Respuesta
+            {
+                respExitosa = true,
+            };
+        }
+
 
         public async Task<Respuesta> mostrarLista<T>(string urlBase, string prefijo, string controlador)
         {

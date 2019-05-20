@@ -41,10 +41,17 @@ namespace Tesis.VistaModelo
         private async void LoadLocales()
         {
             this.IsRefreshing = true;
-            //var url = Application.Current.Resources["UrlAPILocal"].ToString();
-            //var prefijo = Application.Current.Resources["UrlPrefixLocal"].ToString();
-            //var controlador = Application.Current.Resources["UrlRestauranteControllerLocal"].ToString();
-            var response = await this.apiServicios.mostrarLista<Local>("https://tesisapi.azurewebsites.net", "/api","/Locals");
+            var conexion = await this.apiServicios.ValidacionInternet();
+            if (!conexion.respExitosa)
+            {
+                this.IsRefreshing = false;
+                await Application.Current.MainPage.DisplayAlert("Error", "Por favor conectarse a internet.", "Aceptar");
+                return;
+            }
+            var url = Application.Current.Resources["UrlAPILocal"].ToString();
+            var prefijo = Application.Current.Resources["UrlPrefixLocal"].ToString();
+            var controlador = Application.Current.Resources["UrlRestauranteControllerLocal"].ToString();
+            var response = await this.apiServicios.mostrarLista<Local>(url, prefijo,controlador);
 
             if (!response.respExitosa)
             {

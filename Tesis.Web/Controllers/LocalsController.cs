@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tesis.Comun.Modelo;
 using Tesis.Web.Models;
+using Tesis.Web.Helpers;
 
 namespace Tesis.Web.Controllers
 {
@@ -20,7 +21,7 @@ namespace Tesis.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var locals = db.Locals.Include(l => l.categoriafk);
-            return View(await locals.ToListAsync());
+            return View(await locals.OrderBy(l => l.nombreLocal).ToListAsync());
         }
 
         // GET: Locals/Details/5
@@ -48,19 +49,46 @@ namespace Tesis.Web.Controllers
         // POST: Locals/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        //SE INCORPORA EL LOCALVISTA POR LA PROPIEDAD DE LA FOTO
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idLocal,foto,nombreLocal,pagWeb,descripcion,idCategoria")] Local local)
+        public async Task<ActionResult> Create( LocalVista vistaLocal)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Imagenes";
+
+                if (vistaLocal.fotoFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(vistaLocal.fotoFile, folder);
+                    pic = $"{folder}/{pic}";
+                }
+                //almaceno los datos en la variable local
+                var local = this.ToLocal(vistaLocal,pic);
+                //agrego los datos almacenados en la variable local a la base de datos
                 db.Locals.Add(local);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", vistaLocal.idCategoria);
+            return View(vistaLocal);
+        }
+        //pasando los datos y foto a la bd
+        private Local ToLocal(LocalVista vistaLocal,string pic)
+        {
+            return new Local
+            {
+
+                idLocal=vistaLocal.idLocal,
+                foto = pic,
+                nombreLocal = vistaLocal.nombreLocal,
+                pagWeb=vistaLocal.pagWeb,
+                descripcion = vistaLocal.descripcion,
+                idCategoria=vistaLocal.idCategoria
+            };
         }
 
         // GET: Locals/Edit/5
@@ -76,7 +104,21 @@ namespace Tesis.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            var view = this.ToView(local);
+            return View(view);
+        }
+
+        private LocalVista ToView(Local local)
+        {
+            return new LocalVista
+            {
+                idLocal= local.idLocal,
+                foto = local.foto,
+                nombreLocal = local.nombreLocal,
+                pagWeb = local.pagWeb,
+                descripcion = local.descripcion,
+                idCategoria = local.idCategoria
+            };
         }
 
         // POST: Locals/Edit/5
@@ -84,16 +126,26 @@ namespace Tesis.Web.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idLocal,foto,nombreLocal,pagWeb,descripcion,idCategoria")] Local local)
+        public async Task<ActionResult> Edit( LocalVista vistaLocal)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(local).State = EntityState.Modified;
+                var pic = vistaLocal.foto;
+                var folder = "~/Content/Imagenes";
+
+                if (vistaLocal.fotoFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(vistaLocal.fotoFile, folder);
+                    pic = $"{folder}/{pic}";
+                }
+                var local = this.ToLocal(vistaLocal, pic);
+
+                this.db.Entry(local).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", local.idCategoria);
-            return View(local);
+            ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", vistaLocal.idCategoria);
+            return View(vistaLocal);
         }
 
         // GET: Locals/Delete/5
