@@ -18,6 +18,8 @@ namespace Tesis.Comun.Modelo
         public int idCategoria { get; set; }
  
         public string nombreCat { get; set; }
+
+        public string fotoCategoria { get; set; }
         [JsonIgnore]
        public virtual ICollection<Local> locales { get; set; }
         [JsonIgnore]

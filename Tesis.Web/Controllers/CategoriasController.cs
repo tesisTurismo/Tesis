@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tesis.Comun.Modelo;
 using Tesis.Web.Models;
+using Tesis.Web.Helpers;
 
 namespace Tesis.Web.Controllers
 {
@@ -48,16 +49,39 @@ namespace Tesis.Web.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idCategoria,nombreCat")] Categoria categoria)
+        public async Task<ActionResult> Create(CategoriaVista datosCategoria)
         {
             if (ModelState.IsValid)
             {
-                db.Categorias.Add(categoria);
+                var pic = string.Empty;
+                var folder= "~/Content/catImagen";
+
+                if (datosCategoria.fotoFileCat != null)
+                {
+                    pic = FilesHelper.UploadPhoto(datosCategoria.fotoFileCat, folder);
+                    pic = $"{folder}/{pic}";
+
+                }
+
+                var categorias = this.ToCategorias(datosCategoria, pic);
+
+
+                db.Categorias.Add(categorias);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(categoria);
+            return View(datosCategoria);
+        }
+
+        private Categoria ToCategorias(CategoriaVista datosCategoria, string pic)
+        {
+            return new Categoria {
+                idCategoria = datosCategoria.idCategoria,
+                nombreCat=datosCategoria.nombreCat,
+                fotoCategoria=pic,
+                
+            };
         }
 
         // GET: Categorias/Edit/5
@@ -72,7 +96,19 @@ namespace Tesis.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(categoria);
+            var view = this.ToView(categoria);
+            return View(view);
+        }
+
+        private CategoriaVista ToView(Categoria categorias)
+        {
+            return new CategoriaVista
+            {
+                idCategoria = categorias.idCategoria,
+                nombreCat = categorias.nombreCat,
+                fotoCategoria = categorias.fotoCategoria
+
+            };
         }
 
         // POST: Categorias/Edit/5
@@ -80,15 +116,25 @@ namespace Tesis.Web.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idCategoria,nombreCat")] Categoria categoria)
+        public async Task<ActionResult> Edit(CategoriaVista datosCategoria)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(categoria).State = EntityState.Modified;
+                var pic = datosCategoria.fotoCategoria;
+                var folder = "~/Content/catImagen";
+
+                if (datosCategoria.fotoFileCat != null)
+                {
+                    pic = FilesHelper.UploadPhoto(datosCategoria.fotoFileCat, folder);
+                    pic = $"{folder}/{pic}";
+
+                }
+                var categorias = this.ToCategorias(datosCategoria, pic);
+                db.Entry(categorias).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(categoria);
+            return View(datosCategoria);
         }
 
         // GET: Categorias/Delete/5

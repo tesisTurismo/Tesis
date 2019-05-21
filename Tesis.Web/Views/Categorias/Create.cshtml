@@ -1,4 +1,4 @@
-﻿@model Tesis.Comun.Modelo.Categoria
+﻿@model Tesis.Web.Models.CategoriaVista
 
 @{
     ViewBag.Title = "Create";
@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Categorias", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Categoria</h4>
         <hr />
@@ -20,6 +20,16 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.nombreCat, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.nombreCat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fotoFileCat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span class="btn btn-default btn-file">
+                    @Html.TextBoxFor(modelo => modelo.fotoFileCat, new { type = "file" })
+
+                </span>
             </div>
         </div>
 
