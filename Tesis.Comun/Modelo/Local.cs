@@ -25,6 +25,19 @@ namespace Tesis.Comun.Modelo
         [JsonIgnore]
         public virtual Categoria categoriafk { get; set; }
 
+        public string fotoApp
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.foto))
+                {
+                    return "noLocal";
+                }
+
+                return $"https://tesisweb.azurewebsites.net/{this.foto.Substring(1)}";
+
+            }
+        }
         public override string ToString()
         {
             return this.nombreLocal;

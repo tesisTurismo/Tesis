@@ -22,18 +22,19 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    
                                    
                                 </Grid.ColumnDefinitions>
-                                <!--<Image 
+                                <Image 
                                     Grid.Column="0"
 
-                                    Source="{Binding imagenApp}" 
+                                    Source="{Binding fotoApp}" 
                                     WidthRequest="100"
                                     HeightRequest="100">
 
-                                </Image>-->
-                                <!-- <StackLayout Grid.Column="1"  VerticalOptions="Center" >-->
-                                <Label Grid.Column="0" 
+                                </Image>
+                                <StackLayout Grid.Column="1"  VerticalOptions="Center" >
+                                    <Label  
                                        FontAttributes="Bold" 
                                         TextColor="Black"
                                        Text="{Binding nombreLocal}"
@@ -41,14 +42,13 @@
 
 
                                     </Label>
-                                    <Label  Grid.Column="1"
+                                    <Label 
                                        FontAttributes="Bold"  
                                        Text="{Binding descripcion}"
                                        FontSize="Medium" >
-
-
                                     </Label>
-                                <!-- </StackLayout> -->
+                                </StackLayout>
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
