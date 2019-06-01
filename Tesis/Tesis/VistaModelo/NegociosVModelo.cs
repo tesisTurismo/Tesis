@@ -11,19 +11,37 @@ namespace Tesis.VistaModelo
     using Xamarin.Forms;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
+    using Tesis.Vistas;
+    using System.Linq;
 
     public class NegociosVModelo:BaseVModelo
     {
+        //atributos
         private ApiServicio apiServicios;
 
-        private ObservableCollection<Local> locales;
+        private ObservableCollection<NegociosItemVModelo> locales;
 
         private bool isRefreshing;
+        private string filtro;
+        //propiedades
 
-        public ObservableCollection<Local> Locales {
+
+        public string Filtro
+        {
+            get { return this.filtro; }
+            set
+            {
+                this.filtro = value;
+                this.RefreshList();
+            }
+        }
+        public ObservableCollection<NegociosItemVModelo> Locales {
             get { return this.locales; }
             set { this.SetValue(ref this.locales, value); }
         }
+
+        //lista de locales
+        public List<Local>MyLocals{get; set;}
 
         public bool IsRefreshing
         {
@@ -48,9 +66,9 @@ namespace Tesis.VistaModelo
                 await Application.Current.MainPage.DisplayAlert("Error", "Por favor conectarse a internet.", "Aceptar");
                 return;
             }
-            var url = Application.Current.Resources["UrlAPILocal"].ToString();
-            var prefijo = Application.Current.Resources["UrlPrefixLocal"].ToString();
-            var controlador = Application.Current.Resources["UrlRestauranteControllerLocal"].ToString();
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var prefijo = Application.Current.Resources["UrlPrefix"].ToString();
+            var controlador = Application.Current.Resources["UrlControllerLocal"].ToString();
             var response = await this.apiServicios.mostrarLista<Local>(url, prefijo,controlador);
 
             if (!response.respExitosa)
@@ -60,9 +78,10 @@ namespace Tesis.VistaModelo
                 return;
             }
 
-            var lista = (List<Local>)response.resultado;
-            this.Locales = new ObservableCollection<Local>(lista);
-           // this.RefreshList();
+          // var lista = (List<Local>)response.resultado;
+          this.MyLocals= (List<Local>)response.resultado;
+            //this.Locales = new ObservableCollection<Local>(lista);
+            this.RefreshList();
             this.IsRefreshing = false;
         }
 
@@ -74,6 +93,58 @@ namespace Tesis.VistaModelo
             }
         }
 
+        //Metodo para refrescar la lista y filtrar
+        public void RefreshList()
+        {
+            if (string.IsNullOrEmpty(this.Filtro))
+            {
+                var mylistaNVM = this.MyLocals.Select(p => new NegociosItemVModelo
+                {
+                    idLocal=p.idLocal,
+                    foto = p.foto,
+                    nombreLocal=p.nombreLocal,
+                    pagWeb=p.pagWeb,
+                    descripcion=p.descripcion,
+                    idCategoria=p.idCategoria,
+
+
+
+
+                });
+                this.Locales = new ObservableCollection<NegociosItemVModelo>(
+                    mylistaNVM.OrderBy(p => p.nombreLocal));
+            }
+            else
+            {
+
+                var mylistaNVM = this.MyLocals.Select(p => new NegociosItemVModelo
+                {
+                    idLocal = p.idLocal,
+                    foto = p.foto,
+                    nombreLocal = p.nombreLocal,
+                    pagWeb = p.pagWeb,
+                    descripcion = p.descripcion,
+                    idCategoria = p.idCategoria,
+
+
+
+
+                }).Where(p => p.nombreLocal.ToLower().Contains(this.filtro.ToLower())).ToList();
+                this.Locales = new ObservableCollection<NegociosItemVModelo>(
+                    mylistaNVM.OrderBy(p => p.nombreLocal));
+
+
+
+            }
+        }
+
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new RelayCommand(RefreshList);
+            }
+        }
 
     }
 }

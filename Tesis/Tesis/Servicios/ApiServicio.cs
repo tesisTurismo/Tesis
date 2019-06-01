@@ -80,7 +80,44 @@ namespace Tesis.Servicios
             }
         }
 
+        public async Task<Respuesta> mostrarLista<T>(string urlBase, string prefijo, string controlador,int id)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(urlBase);
+                var url = $"{prefijo}{controlador}/{id}";
+                var respuestaNav = await client.GetAsync(url);
+                var respuestaJson = await respuestaNav.Content.ReadAsStringAsync();
+                if (!respuestaNav.IsSuccessStatusCode)
+                {
+                    return new Respuesta
+                    {
+                        respExitosa = false,
+                        mensaje = respuestaJson,
+                    };
+                }
 
+                var lista = JsonConvert.DeserializeObject<List<T>>(respuestaJson);
+
+                return new Respuesta
+                {
+                    respExitosa = true,
+                    resultado = lista
+
+                };
+
+            }
+
+            catch (Exception ex)
+            {
+                return new Respuesta
+                {
+                    respExitosa = false,
+                    mensaje = ex.Message,
+                };
+            }
+        }
 
 
 

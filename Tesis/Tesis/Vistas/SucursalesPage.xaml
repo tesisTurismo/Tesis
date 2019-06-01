@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tesis.Vistas.SucursalesPage" BindingContext="{Binding Main,Source={StaticResource localizador}}"
+             Title="Sucursales" >
+    <ContentPage.Content>
+
+        <StackLayout BindingContext="{Binding Sucursales}" Padding="5" >
+            <Label FontAttributes="Bold" Text="{Binding NombreLocal}" FontSize="Large" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center"></Label>
+            <Image Source="{Binding ImageSource}" WidthRequest="100"></Image>
+            <Label Text="{Binding DescripcionLocal}" FontSize="Medium" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ></Label>
+            <Label Text="Página Web" FontSize="Medium" VerticalOptions="FillAndExpand" FontAttributes="Bold"></Label>
+            <Label Text="{Binding PagWebLocal}" FontSize="Medium" VerticalOptions="FillAndExpand" ></Label>
+
+            
+            <Label Text="Ubicaciones" FontAttributes="Bold" FontSize="Medium" ></Label>
+            
+            <ListView
+                
+                HasUnevenRows="True"
+                IsRefreshing="{Binding IsRefreshing}"
+                IsPullToRefreshEnabled="True"
+                ItemsSource="{Binding Sucursales}"
+                RefreshCommand="{Binding RefreshCommand}"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame  Margin="5">
+                                <Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SucursalesDetalleCommand}"/>
+                                    </Grid.GestureRecognizers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="0.2*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label
+                                        Grid.Column="0"
+                                        
+                                        FontSize="Medium"
+                                     Text="{Binding calle}" TextColor="Black"
+                                    
+                                        VerticalOptions="CenterAndExpand">
+                                    </Label>
+                                    <Label Grid.Column="1"
+                                    
+                                    Text="{Binding numero}" 
+                                    TextColor="Black" FontSize="Medium" VerticalOptions="Center" />
+                                    <!--<Image
+                                        Grid.Column="2"
+                                        Source="ic_chevron_right"
+                                        VerticalOptions="Center">
+                                    </Image>-->
+                                    <Button Grid.Column="2"
+                                    
+                                        Text="Detalles" BackgroundColor="LightBlue"  FontSize="Small" WidthRequest="100" HeightRequest="40" VerticalOptions="Center" Command="{Binding SucursalesDetalleCommand}"></Button>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

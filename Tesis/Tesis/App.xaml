@@ -7,9 +7,11 @@
         <ResourceDictionary>
 
             <infra:LocalizadorInstancia x:Key="localizador"></infra:LocalizadorInstancia>
-            <x:String x:Key="UrlAPILocal">https://tesisapi.azurewebsites.net</x:String>
-            <x:String x:Key="UrlPrefixLocal">/api</x:String>
-            <x:String x:Key="UrlRestauranteControllerLocal">/Locals</x:String>
+            <x:String x:Key="UrlAPI">https://tesisapi.azurewebsites.net</x:String>
+            <x:String x:Key="UrlPrefix">/api</x:String>
+            <x:String x:Key="UrlControllerLocal">/Locals</x:String>
+            <x:String x:Key="UrlControllerSucursal">/Sucursals</x:String>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

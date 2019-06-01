@@ -28,13 +28,9 @@ namespace Tesis.API.Controllers
         [ResponseType(typeof(Sucursal))]
         public async Task<IHttpActionResult> GetSucursal(int id)
         {
-            Sucursal sucursal = await db.Sucursals.FindAsync(id);
-            if (sucursal == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(sucursal);
+            var sucursales = await db.Sucursals.Where(p => p.idLocal == id).ToListAsync();
+ 
+            return Ok(sucursales);
         }
 
         // PUT: api/Sucursals/5

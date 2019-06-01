@@ -7,49 +7,67 @@
     <ContentPage.Content>
         <!--binding Vista Principal/negocios-->
         <StackLayout BindingContext="{Binding Negocios}" Padding="5">
+            <SearchBar
+               HeightRequest="35"
+                WidthRequest="35"
+                Placeholder="Buscar Local" 
+                Text="{Binding Filtro}" 
+                SearchCommand="{Binding SearchCommand}">
+
+            </SearchBar>
             <!--binding Negocios Vista Modelo-->
             <ListView ItemsSource="{Binding Locales}"
                       HasUnevenRows="True"
                       IsRefreshing="{Binding IsRefreshing}" 
                       RefreshCommand="{Binding RefreshCommand}" 
-                      IsPullToRefreshEnabled="True">
+                      IsPullToRefreshEnabled="True" SeparatorVisibility="None">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid>
-                                
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    
-                                   
-                                </Grid.ColumnDefinitions>
-                                <Image 
+                            <Frame  HasShadow="true" Margin="7">
+                                <Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SucursalesCommand}"/>
+                                    </Grid.GestureRecognizers>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+
+
+                                    </Grid.ColumnDefinitions>
+                                    <Image 
                                     Grid.Column="0"
 
                                     Source="{Binding fotoApp}" 
                                     WidthRequest="100"
                                     HeightRequest="100">
 
-                                </Image>
-                                <StackLayout Grid.Column="1"  VerticalOptions="Center" >
-                                    <Label  
+                                    </Image>
+                                    <StackLayout Grid.Column="1"  VerticalOptions="Center" >
+                                        <Label  
                                        FontAttributes="Bold" 
                                         TextColor="Black"
                                        Text="{Binding nombreLocal}"
                                        FontSize="18">
 
 
-                                    </Label>
-                                    <Label 
+                                        </Label>
+                                        <!--<Label 
                                        FontAttributes="Bold"  
                                        Text="{Binding descripcion}"
                                        FontSize="Medium" >
-                                    </Label>
-                                </StackLayout>
+                                    </Label>-->
+                                    </StackLayout>
+                                    <Image Grid.Column="2" Source="siguiente"
+                                       VerticalOptions="Center" WidthRequest="60"
+                                    HeightRequest="60">
 
-                            </Grid>
+                                    </Image>
+                                </Grid>
+                            </Frame>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

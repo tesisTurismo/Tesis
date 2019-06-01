@@ -166,4 +166,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\noLocal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\siguiente.png" />
+  </ItemGroup>
 </Project>
