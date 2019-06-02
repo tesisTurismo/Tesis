@@ -11,6 +11,8 @@
             <x:String x:Key="UrlPrefix">/api</x:String>
             <x:String x:Key="UrlControllerLocal">/Locals</x:String>
             <x:String x:Key="UrlControllerSucursal">/Sucursals</x:String>
+            <x:String x:Key="UrlControllerCategorias">/Categorias</x:String>
+            <x:String x:Key="UrlControllerLugaresHistoricos">/LugarHistoricoes</x:String>
             
         </ResourceDictionary>
     </Application.Resources>

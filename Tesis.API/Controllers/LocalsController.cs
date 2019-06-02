@@ -28,13 +28,10 @@ namespace Tesis.API.Controllers
         [ResponseType(typeof(Local))]
         public async Task<IHttpActionResult> GetLocal(int id)
         {
-            Local local = await db.Locals.FindAsync(id);
-            if (local == null)
-            {
-                return NotFound();
-            }
+            var locales = await this.db.Locals.Where(l => l.idCategoria == id).ToListAsync();
 
-            return Ok(local);
+
+            return Ok(locales);
         }
 
         // PUT: api/Locals/5

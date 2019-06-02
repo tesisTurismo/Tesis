@@ -16,6 +16,7 @@ namespace Tesis.VistaModelo
     {
         private ApiServicio apiservicio;
         private Local local { get; set; }
+       
         public NegociosItemVModelo()
         {
             this.apiservicio = new ApiServicio();
@@ -47,8 +48,14 @@ namespace Tesis.VistaModelo
 
         private async void IrSucursales()
         {
-            VistaPrincipal.GetInstancia().Sucursales = new SucursalVModelo(this);
-            await Application.Current.MainPage.Navigation.PushAsync(new SucursalesPage());
+            
+                
+
+                VistaPrincipal.GetInstancia().Sucursales = new SucursalVModelo(this);
+                await Application.Current.MainPage.Navigation.PushAsync(new SucursalesPage());
+
+           
+
         }
     }
 }

@@ -13,6 +13,9 @@ namespace Tesis.VistaModelo
         public NegociosVModelo Negocios { get; set; }
         public SucursalVModelo Sucursales { get; set; }
         public DetalleSucursalVModelo DetalleSucursales { get; set; }
+        public LugaresHistoricosVModelo LugaresHistoricos { get; set; }
+
+        public CategoriasVModel Categorias { get; set; }
 
         public VistaPrincipal()
         {

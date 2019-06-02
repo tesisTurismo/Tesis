@@ -9,12 +9,13 @@ namespace Tesis
     using Vistas;
     public partial class App : Application
     {
+
         public App()
         {
             InitializeComponent();
             var vPrincipal = VistaPrincipal.GetInstancia();
-            vPrincipal.Negocios = new NegociosVModelo();
-            this.MainPage = new NavigationPage(new NegociosPage());
+            vPrincipal.Categorias = new CategoriasVModel();
+            this.MainPage = new NavigationPage(new CategoriasPage());
 
             //MainPage = new NavigationPage (new NegociosPage());
         }

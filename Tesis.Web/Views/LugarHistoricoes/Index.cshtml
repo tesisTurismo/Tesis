@@ -47,7 +47,11 @@
             @Html.DisplayFor(modelItem => item.categoriafk.nombreCat)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.foto)
+            @if (!string.IsNullOrEmpty(item.foto))
+            {
+                <img src="@Url.Content(item.foto)" alt="Image" style="width:100px;height:150px;max-width:100%;height:auto;" />
+            }
+          
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.nombreLugarH)

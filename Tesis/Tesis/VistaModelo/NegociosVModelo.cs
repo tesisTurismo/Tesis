@@ -23,9 +23,15 @@ namespace Tesis.VistaModelo
 
         private bool isRefreshing;
         private string filtro;
+        public Categoria Categoria { get; set; }
+        private int idCat;
         //propiedades
 
-
+        public int IdCat
+        {
+            get { return this.idCat; }
+            set { this.SetValue(ref this.idCat, value); }
+        }
         public string Filtro
         {
             get { return this.filtro; }
@@ -43,6 +49,7 @@ namespace Tesis.VistaModelo
         //lista de locales
         public List<Local>MyLocals{get; set;}
 
+        private static NegociosVModelo instancia;
         public bool IsRefreshing
         {
             get { return this.isRefreshing; }
@@ -50,12 +57,18 @@ namespace Tesis.VistaModelo
 
         }
 
-        public NegociosVModelo()
+        public NegociosVModelo(Categoria categoria)
         {
+            
+            instancia = this;
+            this.IdCat = categoria.idCategoria;
+            this.Categoria = categoria;
             this.apiServicios = new ApiServicio();
+          
             this.LoadLocales();
+            
         }
-
+       
         private async void LoadLocales()
         {
             this.IsRefreshing = true;
@@ -69,7 +82,7 @@ namespace Tesis.VistaModelo
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var prefijo = Application.Current.Resources["UrlPrefix"].ToString();
             var controlador = Application.Current.Resources["UrlControllerLocal"].ToString();
-            var response = await this.apiServicios.mostrarLista<Local>(url, prefijo,controlador);
+            var response = await this.apiServicios.mostrarLista<Local>(url, prefijo,controlador,this.Categoria.idCategoria);
 
             if (!response.respExitosa)
             {

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tesis.Comun.Modelo;
 using Tesis.Web.Models;
+using Tesis.Web.Helpers;
 
 namespace Tesis.Web.Controllers
 {
@@ -50,17 +51,46 @@ namespace Tesis.Web.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idLugarHistorico,foto,nombreLugarH,descripcionLugarH,calle,numero,telefonoLugarH,latitudLugarH,longitudLugarH,idCategoria")] LugarHistorico lugarHistorico)
+        public async Task<ActionResult> Create(LugarHistoricoVista lugarHistorico) 
         {
             if (ModelState.IsValid)
             {
-                db.LugarHistoricoes.Add(lugarHistorico);
+                var pic = string.Empty;
+                var folder = "~/Content/imagenTurismo";
+
+                if (lugarHistorico.fotoFilelugar != null)
+                {
+                    pic = FilesHelper.UploadPhoto(lugarHistorico.fotoFilelugar, folder);
+                    pic = $"{folder}/{pic}";
+
+                }
+
+                var lugaresHistoricos = this.ToLugarHistorico(lugarHistorico, pic);
+
+                db.LugarHistoricoes.Add(lugaresHistoricos);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
             ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", lugarHistorico.idCategoria);
             return View(lugarHistorico);
+        }
+
+        private LugarHistorico ToLugarHistorico(LugarHistoricoVista lugarHistorico, string pic)
+        {
+            return new LugarHistorico
+            {
+                idLugarHistorico=lugarHistorico.idLugarHistorico,
+                foto=pic,
+                nombreLugarH=lugarHistorico.nombreLugarH,
+                descripcionLugarH=lugarHistorico.descripcionLugarH,
+                calle=lugarHistorico.calle,
+                numero=lugarHistorico.numero,
+                telefonoLugarH=lugarHistorico.telefonoLugarH,
+                latitudLugarH=lugarHistorico.latitudLugarH,
+                longitudLugarH=lugarHistorico.longitudLugarH,
+                idCategoria=lugarHistorico.idCategoria,
+            };
         }
 
         // GET: LugarHistoricoes/Edit/5
@@ -76,19 +106,58 @@ namespace Tesis.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", lugarHistorico.idCategoria);
-            return View(lugarHistorico);
+            var view = this.ToView(lugarHistorico);
+
+
+
+
+                
+            return View(view);
         }
+
+        private LugarHistoricoVista ToView (LugarHistorico lugarHistorico)
+        {
+            return new LugarHistoricoVista
+            {
+                idLugarHistorico = lugarHistorico.idLugarHistorico,
+                foto = lugarHistorico.foto,
+                nombreLugarH = lugarHistorico.nombreLugarH,
+                descripcionLugarH = lugarHistorico.descripcionLugarH,
+                calle = lugarHistorico.calle,
+                numero = lugarHistorico.numero,
+                telefonoLugarH = lugarHistorico.telefonoLugarH,
+                latitudLugarH = lugarHistorico.latitudLugarH,
+                longitudLugarH = lugarHistorico.longitudLugarH,
+                idCategoria = lugarHistorico.idCategoria,
+
+
+            };
+
+        }
+
+
 
         // POST: LugarHistoricoes/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idLugarHistorico,foto,nombreLugarH,descripcionLugarH,calle,numero,telefonoLugarH,latitudLugarH,longitudLugarH,idCategoria")] LugarHistorico lugarHistorico)
+        public async Task<ActionResult> Edit(LugarHistoricoVista lugarHistorico )
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lugarHistorico).State = EntityState.Modified;
+                var pic = lugarHistorico.foto;
+                var folder = "~/Content/imagenTurismo";
+
+                if (lugarHistorico.fotoFilelugar != null)
+                {
+                    pic = FilesHelper.UploadPhoto(lugarHistorico.fotoFilelugar, folder);
+                    pic = $"{folder}/{pic}";
+
+                }
+
+                var lugaresHistoricos = this.ToLugarHistorico(lugarHistorico, pic);
+                db.Entry(lugaresHistoricos).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

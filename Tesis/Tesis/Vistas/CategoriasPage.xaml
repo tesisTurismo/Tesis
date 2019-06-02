@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tesis.Vistas.CategoriasPage"
+             BackgroundColor="Silver"
+              BindingContext="{Binding Main,Source={StaticResource localizador}}"
+             Title="Categorias">
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding Categorias}" Padding="5">
+            <ListView BackgroundColor="Transparent" HasUnevenRows="True" IsRefreshing="{Binding IsRefreshing}"
+              IsPullToRefreshEnabled="True" ItemsSource="{Binding Categorias}" RefreshCommand="{Binding RefreshCommand}" 
+              SeparatorVisibility="None">
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="20" HasShadow="True" Margin="5">
+                                <Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding CategoriaSeleccionadaCommand}"></TapGestureRecognizer>
+                                        <!--<TapGestureRecognizer Command="{Binding lugarhistoricoCommand}"></TapGestureRecognizer>-->
+                                    </Grid.GestureRecognizers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Grid.Column="0" Source="{Binding fotoApp}"
+                                           WidthRequest="100" >
+
+                                    </Image>
+                                    <Label Grid.Column="1" FontAttributes="Bold" FontSize="Large" Text="{Binding nombreCat}" VerticalOptions="Center"></Label>
+                                </Grid>
+
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+
+
+
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage> 

@@ -191,6 +191,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocalDataContext.cs" />
     <Compile Include="Models\LocalVista.cs" />
+    <Compile Include="Models\LugarHistoricoVista.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -208,6 +209,7 @@
     <Content Include="Content\Imagenes\chifananking.jpg" />
     <Content Include="Content\Imagenes\El tercer ojito.jpg" />
     <Content Include="Content\Imagenes\pollon.jpg" />
+    <Content Include="Content\imagenTurismo\barco esmeralda.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

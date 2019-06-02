@@ -24,6 +24,18 @@ namespace Tesis.Comun.Modelo
        public virtual ICollection<Local> locales { get; set; }
         [JsonIgnore]
         public virtual ICollection<LugarHistorico> LugarHistoricos  { get; set; }
+        public string fotoApp
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.fotoCategoria))
+                {
+                    return null;
+                }
 
+                return $"https://tesisweb.azurewebsites.net/{this.fotoCategoria.Substring(1)}";
+
+            }
+        }
     }
 }

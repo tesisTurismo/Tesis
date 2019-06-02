@@ -26,6 +26,20 @@ namespace Tesis.Comun.Modelo
         public int idCategoria { get; set; }
         [JsonIgnore]
         public virtual Categoria categoriafk { get; set; }
+
+        public string fotoApp
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.foto))
+                {
+                    return null;
+                }
+
+                return $"https://tesisweb.azurewebsites.net/{this.foto.Substring(1)}";
+
+            }
+        }
     }
 
 }
