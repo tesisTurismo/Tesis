@@ -19,6 +19,7 @@ namespace Tesis.Comun.Modelo
         public string nombreLocal { get; set; }
         public string pagWeb { get; set; }
         public string descripcion { get; set; }
+        public string descripcionEng { get; set; }
         public int idCategoria { get; set; }
         [JsonIgnore]
         public virtual ICollection<Sucursal> Sucursales { get; set; }

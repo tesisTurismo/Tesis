@@ -50,10 +50,10 @@ namespace Tesis.Web.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
 
-        //SE INCORPORA EL LOCALVISTA POR LA PROPIEDAD DE LA FOTO
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create( LocalVista vistaLocal)
+        //Paramétro LocalVista por la propiedad de la foto
+        public async Task<ActionResult> Create(LocalVista vistaLocal)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace Tesis.Web.Controllers
                     pic = $"{folder}/{pic}";
                 }
                 //almaceno los datos en la variable local
-                var local = this.ToLocal(vistaLocal,pic);
+                var local = this.ToLocal(vistaLocal, pic);
                 //agrego los datos almacenados en la variable local a la base de datos
                 db.Locals.Add(local);
                 await db.SaveChangesAsync();
@@ -76,18 +76,20 @@ namespace Tesis.Web.Controllers
             ViewBag.idCategoria = new SelectList(db.Categorias, "idCategoria", "nombreCat", vistaLocal.idCategoria);
             return View(vistaLocal);
         }
+
         //pasando los datos y foto a la bd
-        private Local ToLocal(LocalVista vistaLocal,string pic)
+        private Local ToLocal(LocalVista vistaLocal, string pic)
         {
             return new Local
             {
 
-                idLocal=vistaLocal.idLocal,
+                idLocal = vistaLocal.idLocal,
                 foto = pic,
                 nombreLocal = vistaLocal.nombreLocal,
-                pagWeb=vistaLocal.pagWeb,
+                pagWeb = vistaLocal.pagWeb,
                 descripcion = vistaLocal.descripcion,
-                idCategoria=vistaLocal.idCategoria
+                descripcionEng=vistaLocal.descripcionEng,
+                idCategoria = vistaLocal.idCategoria
             };
         }
 
@@ -107,26 +109,25 @@ namespace Tesis.Web.Controllers
             var view = this.ToView(local);
             return View(view);
         }
-
         private LocalVista ToView(Local local)
         {
             return new LocalVista
             {
-                idLocal= local.idLocal,
+                idLocal = local.idLocal,
                 foto = local.foto,
                 nombreLocal = local.nombreLocal,
                 pagWeb = local.pagWeb,
                 descripcion = local.descripcion,
+                descripcionEng=local.descripcionEng,
                 idCategoria = local.idCategoria
             };
         }
-
         // POST: Locals/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit( LocalVista vistaLocal)
+        public async Task<ActionResult> Edit(LocalVista vistaLocal)
         {
             if (ModelState.IsValid)
             {
